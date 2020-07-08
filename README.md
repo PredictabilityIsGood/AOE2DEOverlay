@@ -1,2 +1,2 @@
 # AOE2DEOverlay
-provides dynamic twitch overlay for userid specified
+provides dynamic twitch overlay for steamid specified
