@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age of Empires 2 DE - Stream Overlay</title>
+    <link rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" href="/css/bootstrap.min.css"/>
+    <script type="javascript" src="/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <style>
+        .bg-skew-bottom-right {
+            position:absolute;
+            width:100%;
+            height:100%;
+            transform: skew(20deg);
+        }
+        .bg-skew-bottom-left {
+            position:absolute;
+            width:100%;
+            height:100%;
+            transform: skew(-20deg);
+        }
+        .bg-desert {
+            background-color:rgba(255, 193, 7, .8);
+        }
+        .sq-30px {
+            width:30px;
+            height:30px;
+        }
+        .ppr-sdw {
+            box-shadow:1px 1px 3px gray;
+        }
+        .top {
+            z-index:9999;
+        }
+
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <div class="row bg-skew-bottom-right bg-desert ppr-sdw"></div>
+                <div class="row text-light">
+                    <h5 class="display-4 w-100 text-center" style="z-index:999;">Miguel</h5>
+                </div>
+                <div class="row text-light">
+                    <h5 class="lead w-100 text-center" style="z-index:999;">Brazil</h5>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row mt-2">
+                    <p class="lead text-center w-100 mt-auto">VS</p>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row text-center">
+                            <div class="rounded-circle m-auto bg-success text-light sq-30px ppr-sdw top">
+                                <p class="lead m-0 text-center">2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="rounded-circle m-auto bg-danger text-light sq-30px ppr-sdw top">
+                                <p class="lead m-0 text-center">1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row bg-skew-bottom-left bg-desert ppr-sdw"></div>
+                <div class="row text-light">
+                    <h5 class="display-4 w-100 text-center" style="z-index:999;">Dogao</h5>
+                </div>
+                <div class="row text-light">
+                    <h5 class="lead w-100 text-center" style="z-index:999;">Brazil</h5>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</body>
+</html>
