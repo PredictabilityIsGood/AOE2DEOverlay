@@ -34,11 +34,40 @@
         }
 
     </style>
-    <script></script>
+    <script>
+        const pullMatchDetails = async ()=>{
+            let steamid="76561198242526658";
+            try{
+                let response = await fetch("https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+steamid,{headers : { 
+                    'Content-Type': 'application/json'
+                }});
+                const data = await response.json();
+                console.log("site is up",data);
+                document.getElementById("down").classList.add("d-none");
+            }
+            catch(e){
+                let response = await fetch("https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+steamid,{headers : { 
+                    'Content-Type': 'application/json'
+                }});
+                const downtext = await response.text();
+                console.log("site is down",downtext);
+                document.getElementById("up").classList.add("d-none");
+                document.getElementById("down").classList.remove("d-none");
+            }
+        }
+        pullMatchDetails();
+    </script>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div id="down" class="row d-none">
+            <div class="col-12">
+                <p class="lead w-100 text-center">
+                    aoe2.net is down at the moment
+                </p>
+            </div>
+        </div>
+        <div id="up" class="row">
             <div class="col-1"></div>
             <div class="col-4">
                 <div class="row bg-skew-bottom-right bg-desert ppr-sdw"></div>
