@@ -1,0 +1,246 @@
+<scoreboard>
+    <div class="container-fluid">
+        <div if={serverdown} class="row d-none">
+            <div class="col-12">
+                <p class="lead w-100 text-center">
+                    aoe2.net is down at the moment
+                </p>
+            </div>
+        </div>
+        <div if={!serverdown} class="row" >
+            <div class="col-1"></div>
+            <div key=1 class="col-4" style={"color:"+state.text+" !important;"}>
+                <div class="row bg-skew-bottom-right ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
+                <div class="row">
+                    <h2 class="w-100 text-center mb-0" style="z-index:999;">
+                        <small>
+                            {state.teams.length > 0 ? state.teams[0].records.map((player)=>{return player.name}).join(", ")  : "loading..."}
+                        </small>
+                    </h2>
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1" style="z-index:999">
+                        <small>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                                {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator.num_wins+player.num_wins}).num_wins}
+                            </div>
+                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator.num_losses+player.num_losses}).num_losses}
+                            </div>
+                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"ELO"+(state.teams[0].records.length==1?"":"(avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator.rating+player.rating}).rating/state.teams[0].records.length)}
+                            </div>
+                        </small>
+                    </p>
+                </div>
+                <div class="row">
+                    <h5 class="lead w-100 text-center" style="z-index:999;">
+                        <div if={ state.teams.length > 0 }>
+                            <virtual each={ player in state.teams[0].records }>
+                                { state.countries[player.country] } 
+                                <div class={player.flagClass+" d-inline-block ml-2"}></div>
+                            </virtual>
+                        </div>
+                        <div if={ state.teams.length == 0 }>
+                            loading...
+                        </div>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row mt-2">
+                    <div class="rounded-circle m-auto bg-secondary text-light sq-30px ppr-sdw top">
+                        <p class="lead text-center text-light w-100 mt-auto">VS</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row text-center">
+                            <div if={state.teams.length > 0 && state.teams[0].score} class={`rounded-circle m-auto ${ state.teams.filter((team)=>{ return parseFloat(team.score) > parseFloat(state.teams[0].score)}).length == 0 ? "bg-success" : "bg-danger" } text-light sq-30px ppr-sdw top`}>
+                                <p class="lead m-0 text-center">{ state.teams[0].score}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div if={state.teams.length > 0 && state.teams[1].score} class={`rounded-circle m-auto ${ state.teams.filter((team)=>{ return parseFloat(team.score) > parseFloat(state.teams[1].score)}).length == 0 ? "bg-success" : "bg-danger" } text-light sq-30px ppr-sdw top`}>
+                                <p class="lead m-0 text-center">{ state.teams[1].score }</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div key=2 class="col-4" style={"color:"+state.text+" !important;" }>
+                <div class="row bg-skew-bottom-left ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
+                <div class="row">
+                    <h2 class="w-100 text-center mb-0" style="z-index:999;">
+                        <small>
+                            {state.teams.length > 0 ? state.teams[1].records.map((player)=>{return player.name}).join(", ") : "loading..."}
+                        </small>
+                    </h2>
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1"  style="z-index:999;">
+                        <small>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                                {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator.num_wins+player.num_wins}).num_wins}
+                            </div>
+                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator.num_losses+player.num_losses}).num_losses}
+                            </div>
+                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"ELO"+(state.teams[1].records.length==1?"":"(avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator.rating+player.rating}).rating/state.teams[1].records.length)}
+                            </div>
+                        </small>
+                    </p>
+                </div>
+                <div class="row">
+                    <h5 class="lead w-100 text-center" style="z-index:999;">
+                        <div if={ state.teams.length > 0 } >
+                            <virtual each={ player in state.teams[1].records }>
+                                { state.countries[player.country] } 
+                                <div class={player.flagClass+" d-inline-block ml-2"}></div>
+                            </virtual>
+                        </div>
+                        <div if={ state.teams.length == 0 }>
+                            loading...
+                        </div>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <style>
+        .bg-skew-bottom-right {
+            position:absolute;
+            width:100%;
+            height:100%;
+            transform: skew(20deg);
+        }
+        .bg-skew-bottom-left {
+            position:absolute;
+            width:100%;
+            height:100%;
+            transform: skew(-20deg);
+        }
+        .bg-desert {
+            background-color:rgba(255, 193, 7, .8);
+        }
+        .sq-30px {
+            width:30px;
+            height:30px;
+        }
+        .ppr-sdw {
+            box-shadow:1px 1px 3px black;
+        }
+        .top {
+            z-index:9999;
+        }
+        .flag {
+            margin-bottom:-10px;
+        }
+    </style>
+    <script>
+        export default {
+            state:{
+                serverdown:false,
+                steamid:"",
+                background:"",
+                text:"",
+                border:"",
+                proxy:"",
+                players:[],
+                teams:[],
+                countries:{"BD": "Bangladesh", "BE": "Belgium", "BF": "Burkina Faso", "BG": "Bulgaria", "BA": "Bosnia and Herzegovina", "BB": "Barbados", "WF": "Wallis and Futuna", "BL": "Saint Barthelemy", "BM": "Bermuda", "BN": "Brunei", "BO": "Bolivia", "BH": "Bahrain", "BI": "Burundi", "BJ": "Benin", "BT": "Bhutan", "JM": "Jamaica", "BV": "Bouvet Island", "BW": "Botswana", "WS": "Samoa", "BQ": "Bonaire, Saint Eustatius and Saba ", "BR": "Brazil", "BS": "Bahamas", "JE": "Jersey", "BY": "Belarus", "BZ": "Belize", "RU": "Russia", "RW": "Rwanda", "RS": "Serbia", "TL": "East Timor", "RE": "Reunion", "TM": "Turkmenistan", "TJ": "Tajikistan", "RO": "Romania", "TK": "Tokelau", "GW": "Guinea-Bissau", "GU": "Guam", "GT": "Guatemala", "GS": "South Georgia and the South Sandwich Islands", "GR": "Greece", "GQ": "Equatorial Guinea", "GP": "Guadeloupe", "JP": "Japan", "GY": "Guyana", "GG": "Guernsey", "GF": "French Guiana", "GE": "Georgia", "GD": "Grenada", "GB": "United Kingdom", "GA": "Gabon", "SV": "El Salvador", "GN": "Guinea", "GM": "Gambia", "GL": "Greenland", "GI": "Gibraltar", "GH": "Ghana", "OM": "Oman", "TN": "Tunisia", "JO": "Jordan", "HR": "Croatia", "HT": "Haiti", "HU": "Hungary", "HK": "Hong Kong", "HN": "Honduras", "HM": "Heard Island and McDonald Islands", "VE": "Venezuela", "PR": "Puerto Rico", "PS": "Palestinian Territory", "PW": "Palau", "PT": "Portugal", "SJ": "Svalbard and Jan Mayen", "PY": "Paraguay", "IQ": "Iraq", "PA": "Panama", "PF": "French Polynesia", "PG": "Papua New Guinea", "PE": "Peru", "PK": "Pakistan", "PH": "Philippines", "PN": "Pitcairn", "PL": "Poland", "PM": "Saint Pierre and Miquelon", "ZM": "Zambia", "EH": "Western Sahara", "EE": "Estonia", "EG": "Egypt", "ZA": "South Africa", "EC": "Ecuador", "IT": "Italy", "VN": "Vietnam", "SB": "Solomon Islands", "ET": "Ethiopia", "SO": "Somalia", "ZW": "Zimbabwe", "SA": "Saudi Arabia", "ES": "Spain", "ER": "Eritrea", "ME": "Montenegro", "MD": "Moldova", "MG": "Madagascar", "MF": "Saint Martin", "MA": "Morocco", "MC": "Monaco", "UZ": "Uzbekistan", "MM": "Myanmar", "ML": "Mali", "MO": "Macao", "MN": "Mongolia", "MH": "Marshall Islands", "MK": "Macedonia", "MU": "Mauritius", "MT": "Malta", "MW": "Malawi", "MV": "Maldives", "MQ": "Martinique", "MP": "Northern Mariana Islands", "MS": "Montserrat", "MR": "Mauritania", "IM": "Isle of Man", "UG": "Uganda", "TZ": "Tanzania", "MY": "Malaysia", "MX": "Mexico", "IL": "Israel", "FR": "France", "IO": "British Indian Ocean Territory", "SH": "Saint Helena", "FI": "Finland", "FJ": "Fiji", "FK": "Falkland Islands", "FM": "Micronesia", "FO": "Faroe Islands", "NI": "Nicaragua", "NL": "Netherlands", "NO": "Norway", "NA": "Namibia", "VU": "Vanuatu", "NC": "New Caledonia", "NE": "Niger", "NF": "Norfolk Island", "NG": "Nigeria", "NZ": "New Zealand", "NP": "Nepal", "NR": "Nauru", "NU": "Niue", "CK": "Cook Islands", "XK": "Kosovo", "CI": "Ivory Coast", "CH": "Switzerland", "CO": "Colombia", "CN": "China", "CM": "Cameroon", "CL": "Chile", "CC": "Cocos Islands", "CA": "Canada", "CG": "Republic of the Congo", "CF": "Central African Republic", "CD": "Democratic Republic of the Congo", "CZ": "Czech Republic", "CY": "Cyprus", "CX": "Christmas Island", "CR": "Costa Rica", "CW": "Curacao", "CV": "Cape Verde", "CU": "Cuba", "SZ": "Swaziland", "SY": "Syria", "SX": "Sint Maarten", "KG": "Kyrgyzstan", "KE": "Kenya", "SS": "South Sudan", "SR": "Suriname", "KI": "Kiribati", "KH": "Cambodia", "KN": "Saint Kitts and Nevis", "KM": "Comoros", "ST": "Sao Tome and Principe", "SK": "Slovakia", "KR": "South Korea", "SI": "Slovenia", "KP": "North Korea", "KW": "Kuwait", "SN": "Senegal", "SM": "San Marino", "SL": "Sierra Leone", "SC": "Seychelles", "KZ": "Kazakhstan", "KY": "Cayman Islands", "SG": "Singapore", "SE": "Sweden", "SD": "Sudan", "DO": "Dominican Republic", "DM": "Dominica", "DJ": "Djibouti", "DK": "Denmark", "VG": "British Virgin Islands", "DE": "Germany", "YE": "Yemen", "DZ": "Algeria", "US": "United States", "UY": "Uruguay", "YT": "Mayotte", "UM": "United States Minor Outlying Islands", "LB": "Lebanon", "LC": "Saint Lucia", "LA": "Laos", "TV": "Tuvalu", "TW": "Taiwan", "TT": "Trinidad and Tobago", "TR": "Turkey", "LK": "Sri Lanka", "LI": "Liechtenstein", "LV": "Latvia", "TO": "Tonga", "LT": "Lithuania", "LU": "Luxembourg", "LR": "Liberia", "LS": "Lesotho", "TH": "Thailand", "TF": "French Southern Territories", "TG": "Togo", "TD": "Chad", "TC": "Turks and Caicos Islands", "LY": "Libya", "VA": "Vatican", "VC": "Saint Vincent and the Grenadines", "AE": "United Arab Emirates", "AD": "Andorra", "AG": "Antigua and Barbuda", "AF": "Afghanistan", "AI": "Anguilla", "VI": "U.S. Virgin Islands", "IS": "Iceland", "IR": "Iran", "AM": "Armenia", "AL": "Albania", "AO": "Angola", "AQ": "Antarctica", "AS": "American Samoa", "AR": "Argentina", "AU": "Australia", "AT": "Austria", "AW": "Aruba", "IN": "India", "AX": "Aland Islands", "AZ": "Azerbaijan", "IE": "Ireland", "ID": "Indonesia", "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique"}
+            },
+            onBeforeMount(){
+                let params = this.QueryStringToObj(window.location.search);
+
+                const pullMatchDetails = async ()=>{
+                    this.state.steamid=params.steamid || "76561198242526658";
+                    this.state.background=params.background || "#1a6cf0";
+                    this.state.text=params.text || "#f8f9fa";
+                    this.state.border=params.border || "transparent";
+                    this.state.opacity=params.opacity || ".6";
+                    this.state.proxy=params.proxy || "http://localhost:8080/";
+                    try{
+                        let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
+                        const data = await response.json();
+                        console.log("site is up",data);
+                        this.state.players = data.last_match.players;
+                        
+                        const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
+                            let playerRating = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&steam_id="+player["steam_id"])).json())[0];
+                            let playerInfo = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"])).json());
+                            
+                            let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
+                            return {
+                                flagClass:flag,
+                                ...player,
+                                ...playerRating,
+                                ...playerInfo
+                            };
+                        }));
+                        this.state.players = extendedplayerinfo;
+                        this.state.teams = grul.atHierarchy(this.state.players,
+                        this.state.players.length > 2 ?
+                        [{
+                            team: {
+                                "head": (row, typePath, literalPath, template) => row.team
+                            },
+                            value: {
+                                "tail": (rows, typePath, literalPath, template) => rows.length
+                            },
+                            records:{
+                                "tail": (rows, typePath, literalPath, template ) => rows
+                            }
+                        }] :
+                        [{
+                            team: {
+                                "head": (row, typePath, literalPath, template) => row.color
+                            },
+                            value: {
+                                "tail": (rows, typePath, literalPath, template) => rows.length
+                            },
+                            records:{
+                                "tail": (rows, typePath, literalPath, template ) => rows
+                            }
+                        }])
+                        params.scores ? params.scores.split(",").forEach((score,index)=>{
+                            this.state.teams[index].score = score
+                        })  : 0;
+                        this.state.teams.sort((a,b)=>{
+                            let position=0;
+                            a.records.forEach((player)=>{
+                                if(player.steam_id==this.state.steamid){
+                                    position=-1;
+                                }
+                            })
+                            return position;
+                        })
+                        this.update();
+                    }
+                    catch(e){
+                        let response = await fetch("http://localhost:8080/https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
+                        const downtext = await response.text();
+                        console.log("site is down",e,downtext);
+                        serverdown = true;
+                        this.update();
+                    }
+                }
+                pullMatchDetails();
+            },
+            QueryStringToObj(a) {
+                a = a.slice(a.indexOf("?")+1,a.length).split('&');
+                if (a == "") return {};
+                var b = {};
+                for (var i = 0; i < a.length; ++i)
+                {
+                    var p=a[i].split('=', 2);
+                    if (p.length == 1)
+                        b[p[0]] = "";
+                    else
+                        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+                }
+                return b;
+            },
+        }
+    </script>
+</scoreboard>
