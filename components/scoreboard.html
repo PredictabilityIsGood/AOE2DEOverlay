@@ -225,7 +225,7 @@
                         this.update();
                     }
                 }
-                pullMatchDetails();
+                setInterval(pullMatchDetails,20000);
             },
             QueryStringToObj(a) {
                 a = a.slice(a.indexOf("?")+1,a.length).split('&');
