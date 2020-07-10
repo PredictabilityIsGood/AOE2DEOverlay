@@ -30,17 +30,28 @@ provides dynamic twitch overlay for steamid specified with match information
 
 ## Customization
 You can customize the link provided with the following required/optional features
+
 i.e. for Dogao's aoe profile:
+
 https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561197992981071&opacity=.8
+
 i.e. for Miguel's aoe profile:
+
 https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198242526658&opacity=.8
+
 i.e. for Hera's aoe profile:
+
 https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198449406083&opacity=.8
+
 
 ### Required
 steamid - id of the steam profile that you are looking for the match of 
 ### Optional
 background - color of background, supports hex color codes, rgb, rgba, and all other native css3 color formats
 text - color of texet, supports hex color codes, rgb, rgba, and all other native css3 color formats
-opacity - translucency of the overlay
+opacity - translucency of the overlay 0-1
 scores - manual override for score display based on teams 1 and 2. i.e. scores=3,2
+
+### Recommendations
+1v1 Matches should display the browser widget as 1200 x 200 resized to fit within the area between resources and diplomacy options
+Team Matches should display the browser widget as 1800 x 200 resized to fit within other areas. Utilize the opacity property with a low value in order to prevent viewer experience blocking like opacity=.3
