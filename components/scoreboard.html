@@ -20,13 +20,16 @@
                     <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1" style="z-index:999">
                         <small>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
-                                {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator.num_wins+player.num_wins}).num_wins}
+                                {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
                             <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
-                                {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator.num_losses+player.num_losses}).num_losses}
+                                {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
                             <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
-                                {"ELO"+(state.teams[0].records.length==1?"":"(avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator.rating+player.rating}).rating/state.teams[0].records.length)}
+                                {"ELO"+(state.teams[0].records.length==1?"":" (avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[0].records.filter((player)=>{return player.rating}).length)}
+                            </div>
+                            <div if={state.teams[0].records.length>1} class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"(max): "+(state.teams[0].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0) : accumulator; },0))}
                             </div>
                         </small>
                     </p>
@@ -36,7 +39,7 @@
                         <div if={ state.teams.length > 0 }>
                             <virtual each={ player in state.teams[0].records }>
                                 { state.countries[player.country] } 
-                                <div class={player.flagClass+" d-inline-block ml-2"}></div>
+                                <div class={player.flagClass+" d-inline-block  ml-1 mr-2"}></div>
                             </virtual>
                         </div>
                         <div if={ state.teams.length == 0 }>
@@ -79,13 +82,16 @@
                     <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1"  style="z-index:999;">
                         <small>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
-                                {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator.num_wins+player.num_wins}).num_wins}
+                                {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
                             <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
-                                {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator.num_losses+player.num_losses}).num_losses}
+                                {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
                             <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
-                                {"ELO"+(state.teams[1].records.length==1?"":"(avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator.rating+player.rating}).rating/state.teams[1].records.length)}
+                                {"ELO"+(state.teams[1].records.length==1?"":"(avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
+                            </div>
+                            <div if={state.teams[1].records.length>1} class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                                {"(max): "+(state.teams[1].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0): accumulator; },0))}
                             </div>
                         </small>
                     </p>
@@ -95,7 +101,7 @@
                         <div if={ state.teams.length > 0 } >
                             <virtual each={ player in state.teams[1].records }>
                                 { state.countries[player.country] } 
-                                <div class={player.flagClass+" d-inline-block ml-2"}></div>
+                                <div class={player.flagClass+" d-inline-block ml-1 mr-2"}></div>
                             </virtual>
                         </div>
                         <div if={ state.teams.length == 0 }>
@@ -169,14 +175,16 @@
                         const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
                             let playerRating = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&steam_id="+player["steam_id"])).json())[0];
                             let playerInfo = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"])).json());
-                            
+                            playerRating = playerRating ? playerRating : {};
+                            playerInfo = playerInfo ? playerInfo : {};
                             let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
-                            return {
+                            let combinedInfo = {
                                 flagClass:flag,
                                 ...player,
                                 ...playerRating,
                                 ...playerInfo
                             };
+                            return combinedInfo;
                         }));
                         this.state.players = extendedplayerinfo;
                         this.state.teams = grul.atHierarchy(this.state.players,
@@ -214,18 +222,19 @@
                                 }
                             })
                             return position;
-                        })
+                        });
                         this.update();
                     }
                     catch(e){
-                        let response = await fetch("http://localhost:8080/https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
+                        let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
                         const downtext = await response.text();
                         console.log("site is down",e,downtext);
                         serverdown = true;
                         this.update();
                     }
                 }
-                setInterval(pullMatchDetails,20000);
+                pullMatchDetails();
+                setInterval(pullMatchDetails,40000);
             },
             QueryStringToObj(a) {
                 a = a.slice(a.indexOf("?")+1,a.length).split('&');
