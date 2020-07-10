@@ -1,7 +1,7 @@
 # AOE2DEOverlay
 provides dynamic twitch overlay for steamid specified with match information
 
-## Installation Steps (github hosted)
+## Installation Steps (github hosted, locally proxied - out of the box setups - BASIC )
 1) Install Node.JS from [here](https://nodejs.org/en/download/current/)
 2) Clone/Download this or a forked repository from github
 3) Open CMD prompt and move to the downloaded directory
@@ -13,7 +13,7 @@ provides dynamic twitch overlay for steamid specified with match information
 8) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h
 9) Utilize the obs resizing options to fit the overlay properly within your stream
 
-## Installation Steps (locally hosted - development or custom builds)
+## Installation Steps (locally hosted, locally proxied - development or custom builds - ADVANCED )
 1) Install Node.JS from [here](https://nodejs.org/en/download/current/)
 2) Clone/Download this or a forked repository from github
 3) Open CMD prompt and move to the downloaded directory
