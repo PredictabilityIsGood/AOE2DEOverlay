@@ -58,4 +58,5 @@ scores - manual override for score display based on teams 1 and 2. i.e. scores=3
 
 ### Recommendations
 1v1 Matches should display the browser widget as 1200 x 200 resized to fit within the area between resources and diplomacy options
+
 Team Matches should display the browser widget as 1800 x 200 resized to fit within other areas. Utilize the opacity property with a low value in order to prevent viewer experience blocking like opacity=.3
