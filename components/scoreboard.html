@@ -8,8 +8,7 @@
             </div>
         </div>
         <div if={!serverdown} class="row" >
-            <div class="col-1"></div>
-            <div key=1 class="col-4" style={"color:"+state.text+" !important;"}>
+            <div key=1 class="col-5 ml-4" style={"color:"+state.text+" !important;"}>
                 <div class="row bg-skew-bottom-right ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
                 <div class="row">
                     <h2 class="w-100 text-center mb-0" style="z-index:999;">
@@ -48,7 +47,7 @@
                     </h5>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-1">
                 <div class="row mt-2">
                     <div class="rounded-circle m-auto bg-secondary text-light sq-30px ppr-sdw top">
                         <p class="lead text-center text-light w-100 mt-auto">VS</p>
@@ -71,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div key=2 class="col-4" style={"color:"+state.text+" !important;" }>
+            <div key=2 class="col-5 mr-4" style={"color:"+state.text+" !important;" }>
                 <div class="row bg-skew-bottom-left ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
                 <div class="row">
                     <h2 class="w-100 text-center mb-0" style="z-index:999;">
@@ -88,7 +87,7 @@
                                 {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
                             <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
-                                {"ELO"+(state.teams[1].records.length==1?"":" (avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
+                                {"ELO"+(state.teams[1].records.length==1?"":"(avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
                             </div>
                             <div if={state.teams[1].records.length>1} class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[1].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0): accumulator; },0))}
@@ -110,7 +109,6 @@
                     </h5>
                 </div>
             </div>
-            <div class="col-1"></div>
         </div>
     </div>
     <style>
