@@ -48,8 +48,11 @@ https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198449406083&
 steamid - id of the steam profile that you are looking for the match of 
 ### Optional
 background - color of background, supports hex color codes, rgb, rgba, and all other native css3 color formats
+
 text - color of texet, supports hex color codes, rgb, rgba, and all other native css3 color formats
+
 opacity - translucency of the overlay 0-1
+
 scores - manual override for score display based on teams 1 and 2. i.e. scores=3,2
 
 ### Recommendations
