@@ -10,7 +10,7 @@ provides dynamic twitch overlay for steamid specified with match information
 6) Add source of "Browser" within OBS studio in the scene of your choice
 7) Copy link from browser location of repository and paste into the field labeled URL. A customizable link is available below
     - https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=PlayerSteamIDHere&opacity=YourOpacityBetween0and1
-8) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h
+8) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h for 1v1 and 1800w x 200h for Team games with multiple players
 9) Utilize the obs resizing options to fit the overlay properly within your stream
 
 ## Installation Steps (locally hosted, locally proxied - development or custom builds - ADVANCED )
@@ -25,7 +25,7 @@ provides dynamic twitch overlay for steamid specified with match information
 9) Take the link from the browser window that opens
 10) Add source of "Browser" within OBS studio in the scene of your choice
 11) Paste link from step 9 into the field labeled URL
-12) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h
+12) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h for 1v1 and 1800w x 200h for Team games with multiple players
 13) Utilize the obs resizing options to fit the overlay properly within your stream
 
 ## Customization
