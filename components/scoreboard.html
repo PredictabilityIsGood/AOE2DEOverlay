@@ -16,7 +16,7 @@
                             <virtual if={ state.teams.length==0 }>
                                 loading...
                             </virtual>
-                            <virtual if={ state.teams.length>0 } class={state.teams[0].records.length>2?"margin-sm":""}>
+                            <virtual if={ state.teams.length>0 } class={state.teams[0].records.length>2?"margin-sm-right":""}>
                                 <virtual each={player in state.teams[0].records} >
                                     <span class={state.teams[0].records.length>2?"text-sm":""}>{player.name}</span><virtual if={player.name!=state.teams[0].records[state.teams[0].records.length-1].name}>, </virtual>
                                 </virtual>
@@ -28,13 +28,13 @@
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
-                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
-                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"ELO"+(state.teams[0].records.length==1?"":" (avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[0].records.filter((player)=>{return player.rating}).length)}
                             </div>
-                            <div if={state.teams[0].records.length>1} class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div if={state.teams[0].records.length>1} class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[0].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0) : accumulator; },0))}
                             </div>
                         </small>
@@ -91,7 +91,7 @@
                             <virtual if={ state.teams.length==0 }>
                                 loading...
                             </virtual>
-                            <virtual if={ state.teams.length>0 } class={state.teams[1].records.length>2?"margin-sm":""}>
+                            <virtual if={ state.teams.length>0 } class={state.teams[1].records.length>2?"margin-sm-left":""}>
                                 <virtual each={player in state.teams[1].records}>
                                     <span class={state.teams[1].records.length>2?"text-sm":""}>{player.name}</span><virtual if={player.name!=state.teams[1].records[state.teams[1].records.length-1].name}>, </virtual>
                                 </virtual>
@@ -103,13 +103,13 @@
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
-                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
-                            <div class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"ELO"+(state.teams[1].records.length==1?"":" (avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
                             </div>
-                            <div if={state.teams[1].records.length>1} class="badge badge-darks ml-1" style={"color:"+state.text+" !important;"}>
+                            <div if={state.teams[1].records.length>1} class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[1].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0): accumulator; },0))}
                             </div>
                         </small>
@@ -170,9 +170,13 @@
             font-size:.9rem;
             font-weight:600
         }
-        .margin-sm {
-            margin-left:20px;
-            margin-right:20px;
+        .margin-sm-right {
+            margin-right:10px;
+            margin-left:-15px;
+        }
+        .margin-sm-left {
+            margin-left:10px;
+            margin-right:-15px;
         }
     </style>
     <script>
