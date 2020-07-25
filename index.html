@@ -10,7 +10,7 @@
     <script>
         let metadata = {};
         async function init(){
-            metadata = await (await fetch("/json/aoe2.net_id_map.json")).json();
+            metadata = await (await fetch("json/aoe2.net_id_map.json")).json();
             metadata = {
                 ...metadata,
                 detailed: await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json")).json()
