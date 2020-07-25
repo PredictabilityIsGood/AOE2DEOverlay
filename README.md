@@ -1,5 +1,5 @@
 # AOE2DEOverlay
-provides dynamic twitch overlay for steamid specified with match information
+provides dynamic twitch overlay for steamid specified with match information with civilization icons, and civ overviews and details
 
 ## Installation Steps (github hosted, locally proxied - out of the box setups - BASIC )
 1) Install Node.JS from [here](https://nodejs.org/en/download/current/)
@@ -10,7 +10,7 @@ provides dynamic twitch overlay for steamid specified with match information
 6) Add source of "Browser" within OBS studio in the scene of your choice
 7) Copy link from browser location of repository and paste into the field labeled URL. A customizable link is available below
     - https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=PlayerSteamIDHere&opacity=YourOpacityBetween0and1
-8) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h for 1v1 and 1800w x 200h for Team games with multiple players
+8) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 940w x 600h for both 1v1 and Team games with multiple players. Resizing then will occur within the obs scaler in step 13
 9) Utilize the obs resizing options to fit the overlay properly within your stream
 
 ## Installation Steps (locally hosted, locally proxied - development or custom builds - ADVANCED )
@@ -25,7 +25,7 @@ provides dynamic twitch overlay for steamid specified with match information
 9) Take the link from the browser window that opens
 10) Add source of "Browser" within OBS studio in the scene of your choice
 11) Paste link from step 9 into the field labeled URL
-12) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 1200w x 200h for 1v1 and 1800w x 200h for Team games with multiple players
+12) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 940w x 600h for both 1v1 and Team games with multiple players. Resizing then will occur within the obs scaler in step 13
 13) Utilize the obs resizing options to fit the overlay properly within your stream
 
 ## Customization
@@ -52,11 +52,9 @@ background - color of background, supports hex color codes, rgb, rgba, and all o
 
 text - color of texet, supports hex color codes, rgb, rgba, and all other native css3 color formats
 
-opacity - translucency of the overlay 0-1
+opacity - translucency of the overlay 0-1 (decimal points in between)
 
 scores - manual override for score display based on teams 1 and 2. i.e. scores=3,2
 
 ### Recommendations
-1v1 Matches should display the browser widget as 1200 x 200 resized to fit within the area between resources and diplomacy options
-
-Team Matches should display the browser widget as 1800 x 200 resized to fit within other areas. Utilize the opacity property with a low value in order to prevent viewer experience blocking like opacity=.3
+1v1 and Team Matches should display the browser source as 940 x 600 resized to fit within the area between resources and diplomacy options with a low value opacity in order to prevent viewer experience blocking like opacity=.3. By utilizing the 600h, brief civ information will be visible as the new match is loaded into memory

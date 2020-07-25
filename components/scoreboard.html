@@ -18,7 +18,9 @@
                             </virtual>
                             <virtual if={ state.teams.length>0 } class={state.teams[0].records.length>2?"margin-sm-right":""}>
                                 <virtual each={player in state.teams[0].records} >
-                                    <span class={state.teams[0].records.length>2?"text-sm":""}>{player.name}</span><virtual if={player.name!=state.teams[0].records[state.teams[0].records.length-1].name}>, </virtual>
+                                    <span class={state.teams[0].records.length>2?"text-sm":""}>{player.name}</span>
+                                    <img class={"ml-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===scope.player.civ}).string.toLowerCase() + ".png"} />
+                                    <virtual if={player.name!=state.teams[0].records[state.teams[0].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
                         </small>
@@ -26,7 +28,7 @@
                     <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1" style="z-index:999">
                         <small>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
-                                {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
+                                {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
@@ -93,6 +95,7 @@
                             </virtual>
                             <virtual if={ state.teams.length>0 } class={state.teams[1].records.length>2?"margin-sm-left":""}>
                                 <virtual each={player in state.teams[1].records}>
+                                    <img class={"mr-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===scope.player.civ}).string.toLowerCase() + ".png"} />
                                     <span class={state.teams[1].records.length>2?"text-sm":""}>{player.name}</span><virtual if={player.name!=state.teams[1].records[state.teams[1].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
@@ -101,7 +104,7 @@
                     <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1"  style="z-index:999;">
                         <small>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
-                                {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{console.log(accumulator);return accumulator+(player.num_wins?player.num_wins:0)},0)}
+                                {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
                             <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
@@ -133,6 +136,37 @@
                             loading...
                         </div>
                     </h5>
+                </div>
+            </div>
+        </div>
+        <div if={!serverdown} id="info-panel" class="row mt-2" style="line-height:19px;">
+            <div class="col-6" style={"color:"+state.text+" !important;"}>
+                <div if={state.cycle==0 && state.teams} class="ml-4 mr-1" style="position:absolute;right:calc( 15% - 36px );width:auto;max-width:80%;">
+                    <div class="w-100 h-100 position-absolute ppr-sdw rounded-bottom" style={"opacity:"+state.opacity+";background-color:"+state.background+";"}></div>
+                    <div each={(player, index) in state.teams[0].records} class="col d-none">
+                        <div class="py-2">
+                            <h2 class="text-center">
+                                <img class="img-lg" src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===scope.player.civ}).string.toLowerCase() + ".png"} />
+                                <small class="ml-2">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
+                            </h2>
+                            <small id={"team-0-player-"+index}></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" style={"color:"+state.text+" !important;"}>
+                <div if={state.cycle==0 && state.teams} class="mr-4 ml-1" style="position:absolute;left:0px;width:auto;max-width:80%;">
+                    <div class="w-100 h-100 position-absolute ppr-sdw rounded-bottom" style={"opacity:"+state.opacity+";background-color:"+state.background+";"}></div>
+                    <div each={(player, index) in state.teams[1].records} class="col d-none">
+                        <div class="py-2">
+                            <h2 class="text-center">
+                                <img class="img-lg" src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===scope.player.civ}).string.toLowerCase() + ".png"} />
+                                <small class="ml-2">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
+                            </h2>
+                            <small id={"team-1-player-"+index}></small>
+                        </div>
+                    </div>
+                    {injectCivDetails()}
                 </div>
             </div>
         </div>
@@ -178,6 +212,23 @@
             margin-left:10px;
             margin-right:-15px;
         }
+        .img-lg {
+            width:50px;
+            height:50px;
+        }
+        .img {
+            width:30px;
+            height:30px;
+        }
+        .img-sm {
+            width:10px;
+            height:10px;
+        }
+        #info-panel {
+            opacity:1;
+            transition: all 1s ease-in-out;
+            -webkit-transition: all 1s ease-in-out;
+        }
     </style>
     <script>
         export default {
@@ -188,14 +239,17 @@
                 text:"",
                 border:"",
                 proxy:"",
+                matchid:null,
                 players:[],
                 teams:[],
+                cycle:0,
                 countries:{"BD": "Bangladesh", "BE": "Belgium", "BF": "Burkina Faso", "BG": "Bulgaria", "BA": "Bosnia and Herzegovina", "BB": "Barbados", "WF": "Wallis and Futuna", "BL": "Saint Barthelemy", "BM": "Bermuda", "BN": "Brunei", "BO": "Bolivia", "BH": "Bahrain", "BI": "Burundi", "BJ": "Benin", "BT": "Bhutan", "JM": "Jamaica", "BV": "Bouvet Island", "BW": "Botswana", "WS": "Samoa", "BQ": "Bonaire, Saint Eustatius and Saba ", "BR": "Brazil", "BS": "Bahamas", "JE": "Jersey", "BY": "Belarus", "BZ": "Belize", "RU": "Russia", "RW": "Rwanda", "RS": "Serbia", "TL": "East Timor", "RE": "Reunion", "TM": "Turkmenistan", "TJ": "Tajikistan", "RO": "Romania", "TK": "Tokelau", "GW": "Guinea-Bissau", "GU": "Guam", "GT": "Guatemala", "GS": "South Georgia and the South Sandwich Islands", "GR": "Greece", "GQ": "Equatorial Guinea", "GP": "Guadeloupe", "JP": "Japan", "GY": "Guyana", "GG": "Guernsey", "GF": "French Guiana", "GE": "Georgia", "GD": "Grenada", "GB": "United Kingdom", "GA": "Gabon", "SV": "El Salvador", "GN": "Guinea", "GM": "Gambia", "GL": "Greenland", "GI": "Gibraltar", "GH": "Ghana", "OM": "Oman", "TN": "Tunisia", "JO": "Jordan", "HR": "Croatia", "HT": "Haiti", "HU": "Hungary", "HK": "Hong Kong", "HN": "Honduras", "HM": "Heard Island and McDonald Islands", "VE": "Venezuela", "PR": "Puerto Rico", "PS": "Palestinian Territory", "PW": "Palau", "PT": "Portugal", "SJ": "Svalbard and Jan Mayen", "PY": "Paraguay", "IQ": "Iraq", "PA": "Panama", "PF": "French Polynesia", "PG": "Papua New Guinea", "PE": "Peru", "PK": "Pakistan", "PH": "Philippines", "PN": "Pitcairn", "PL": "Poland", "PM": "Saint Pierre and Miquelon", "ZM": "Zambia", "EH": "Western Sahara", "EE": "Estonia", "EG": "Egypt", "ZA": "South Africa", "EC": "Ecuador", "IT": "Italy", "VN": "Vietnam", "SB": "Solomon Islands", "ET": "Ethiopia", "SO": "Somalia", "ZW": "Zimbabwe", "SA": "Saudi Arabia", "ES": "Spain", "ER": "Eritrea", "ME": "Montenegro", "MD": "Moldova", "MG": "Madagascar", "MF": "Saint Martin", "MA": "Morocco", "MC": "Monaco", "UZ": "Uzbekistan", "MM": "Myanmar", "ML": "Mali", "MO": "Macao", "MN": "Mongolia", "MH": "Marshall Islands", "MK": "Macedonia", "MU": "Mauritius", "MT": "Malta", "MW": "Malawi", "MV": "Maldives", "MQ": "Martinique", "MP": "Northern Mariana Islands", "MS": "Montserrat", "MR": "Mauritania", "IM": "Isle of Man", "UG": "Uganda", "TZ": "Tanzania", "MY": "Malaysia", "MX": "Mexico", "IL": "Israel", "FR": "France", "IO": "British Indian Ocean Territory", "SH": "Saint Helena", "FI": "Finland", "FJ": "Fiji", "FK": "Falkland Islands", "FM": "Micronesia", "FO": "Faroe Islands", "NI": "Nicaragua", "NL": "Netherlands", "NO": "Norway", "NA": "Namibia", "VU": "Vanuatu", "NC": "New Caledonia", "NE": "Niger", "NF": "Norfolk Island", "NG": "Nigeria", "NZ": "New Zealand", "NP": "Nepal", "NR": "Nauru", "NU": "Niue", "CK": "Cook Islands", "XK": "Kosovo", "CI": "Ivory Coast", "CH": "Switzerland", "CO": "Colombia", "CN": "China", "CM": "Cameroon", "CL": "Chile", "CC": "Cocos Islands", "CA": "Canada", "CG": "Republic of the Congo", "CF": "Central African Republic", "CD": "Democratic Republic of the Congo", "CZ": "Czech Republic", "CY": "Cyprus", "CX": "Christmas Island", "CR": "Costa Rica", "CW": "Curacao", "CV": "Cape Verde", "CU": "Cuba", "SZ": "Swaziland", "SY": "Syria", "SX": "Sint Maarten", "KG": "Kyrgyzstan", "KE": "Kenya", "SS": "South Sudan", "SR": "Suriname", "KI": "Kiribati", "KH": "Cambodia", "KN": "Saint Kitts and Nevis", "KM": "Comoros", "ST": "Sao Tome and Principe", "SK": "Slovakia", "KR": "South Korea", "SI": "Slovenia", "KP": "North Korea", "KW": "Kuwait", "SN": "Senegal", "SM": "San Marino", "SL": "Sierra Leone", "SC": "Seychelles", "KZ": "Kazakhstan", "KY": "Cayman Islands", "SG": "Singapore", "SE": "Sweden", "SD": "Sudan", "DO": "Dominican Republic", "DM": "Dominica", "DJ": "Djibouti", "DK": "Denmark", "VG": "British Virgin Islands", "DE": "Germany", "YE": "Yemen", "DZ": "Algeria", "US": "United States", "UY": "Uruguay", "YT": "Mayotte", "UM": "United States Minor Outlying Islands", "LB": "Lebanon", "LC": "Saint Lucia", "LA": "Laos", "TV": "Tuvalu", "TW": "Taiwan", "TT": "Trinidad and Tobago", "TR": "Turkey", "LK": "Sri Lanka", "LI": "Liechtenstein", "LV": "Latvia", "TO": "Tonga", "LT": "Lithuania", "LU": "Luxembourg", "LR": "Liberia", "LS": "Lesotho", "TH": "Thailand", "TF": "French Southern Territories", "TG": "Togo", "TD": "Chad", "TC": "Turks and Caicos Islands", "LY": "Libya", "VA": "Vatican", "VC": "Saint Vincent and the Grenadines", "AE": "United Arab Emirates", "AD": "Andorra", "AG": "Antigua and Barbuda", "AF": "Afghanistan", "AI": "Anguilla", "VI": "U.S. Virgin Islands", "IS": "Iceland", "IR": "Iran", "AM": "Armenia", "AL": "Albania", "AO": "Angola", "AQ": "Antarctica", "AS": "American Samoa", "AR": "Argentina", "AU": "Australia", "AT": "Austria", "AW": "Aruba", "IN": "India", "AX": "Aland Islands", "AZ": "Azerbaijan", "IE": "Ireland", "ID": "Indonesia", "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique"}
             },
             onBeforeMount(){
                 let params = this.QueryStringToObj(window.location.search);
-
+                console.log(metadata);
                 const pullMatchDetails = async ()=>{
+                    this.state.cycle+=1;
                     this.state.steamid=params.steamid || "76561198242526658";
                     this.state.background=params.background || "#1a6cf0";
                     this.state.text=params.text || "#f8f9fa";
@@ -206,6 +260,10 @@
                         let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
                         const data = await response.json();
                         console.log("site is up",data);
+                        if(this.state.matchid!=data.last_match.match_uuid){
+                            this.state.matchid = data.last_match.match_uuid;
+                            this.state.cycle = 0;
+                        }
                         this.state.players = data.last_match.players;
                         
                         const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
@@ -272,7 +330,7 @@
                     }
                 }
                 pullMatchDetails();
-                setInterval(pullMatchDetails,40000);
+                setInterval(pullMatchDetails,60000);
             },
             QueryStringToObj(a) {
                 a = a.slice(a.indexOf("?")+1,a.length).split('&');
@@ -287,6 +345,74 @@
                         b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
                 }
                 return b;
+            },
+            getMetaData(){
+                return metadata;
+            },
+            injectCivDetails(){
+                const regex = /<br>(\ |\n|\t)*<br>/gmi;
+                setTimeout(()=>{
+                    this.state.teams[0].records.forEach((player,index)=>{
+                        let civPick = metadata.civ.find((civ)=>{ return civ.id===player.civ}).string;
+                        let textId = metadata.detailed.civ_helptexts[civPick];
+                        let html = metadata.detailed.strings[textId].replace(regex,'<br>');
+                        document.getElementById("team-0-player-"+index).innerHTML=html;
+                        this.fadeInOut(
+                            document.getElementById("team-0-player-"+index)
+                            .parentNode
+                            .parentNode,
+                            index*12000,
+                            ((index+1)*12000)
+                        );
+                        
+                    });
+                    this.state.teams[1].records.forEach((player,index)=>{
+                        let civPick = metadata.civ.find((civ)=>{ return civ.id===player.civ}).string;
+                        let textId = metadata.detailed.civ_helptexts[civPick];
+                        let html = metadata.detailed.strings[textId].replace(regex,'<br>');
+                        document.getElementById("team-1-player-"+index).innerHTML=html;
+                        this.fadeInOut(
+                            document.getElementById("team-1-player-"+index)
+                            .parentNode
+                            .parentNode,
+                            index*12000,
+                            ((index+1)*12000)
+                        );
+                    })
+                },100);
+            },
+            fadeInOut(el,start,end){
+                let baseStyle=el.getAttribute("style") ? el.getAttribute("style") : "";
+                let divisions=100;
+                let fadeIn = (el,curOpacity=0)=>{
+                    setTimeout(()=>{
+                        let newOpacity = (curOpacity+(1/divisions));
+                        el.setAttribute("style",baseStyle+"opacity:"+newOpacity+";")
+                        if(curOpacity<1){
+                            fadeIn(el,newOpacity);
+                        }
+                    },300/divisions);
+                };
+                setTimeout(()=>{
+                    
+                    el.classList.remove("d-none");
+                    fadeIn(el);
+                },start);
+                let fadeOut = (el,curOpacity=1)=>{
+                    setTimeout(()=>{
+                        let newOpacity = (curOpacity-(1/divisions));
+                        el.setAttribute("style",baseStyle+"opacity:"+newOpacity+";")
+                        if(curOpacity>0){
+                            fadeOut(el,newOpacity);
+                        }
+                    },300/divisions);
+                }
+                setTimeout(()=>{
+                    fadeOut(el);
+                },end-400);
+                setTimeout(()=>{
+                    el.classList.add("d-none");
+                },end);
             },
         }
     </script>

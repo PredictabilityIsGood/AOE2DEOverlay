@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
     <script type="javascript" src="js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="js/grul.js"></script>
+    <script>
+        let metadata = {};
+        async function init(){
+            metadata = await (await fetch("/json/aoe2.net_id_map.json")).json();
+            metadata = {
+                ...metadata,
+                detailed: await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json")).json()
+            };
+        }
+        init();
+    </script>
     <script src="https://unpkg.com/riot@4/riot+compiler.min.js"></script>
     <script src="components/scoreboard.html" type="riot"></script>
     <link rel="stylesheet" href="countries/country-flag.css">
