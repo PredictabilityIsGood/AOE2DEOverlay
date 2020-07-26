@@ -263,61 +263,62 @@
                         if(this.state.matchid!=data.last_match.match_uuid){
                             this.state.matchid = data.last_match.match_uuid;
                             this.state.cycle = 0;
-                        }
-                        this.state.players = data.last_match.players;
+                            this.state.players = data.last_match.players;
                         
-                        const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
-                            let playerRating = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&steam_id="+player["steam_id"])).json())[0];
-                            let playerInfo = (await (await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"])).json());
-                            playerRating = playerRating ? playerRating : {};
-                            playerInfo = playerInfo ? playerInfo : {};
-                            let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
-                            let combinedInfo = {
-                                flagClass:flag,
-                                ...player,
-                                ...playerRating,
-                                ...playerInfo
-                            };
-                            return combinedInfo;
-                        }));
-                        this.state.players = extendedplayerinfo;
-                        this.state.teams = grul.atHierarchy(this.state.players,
-                        this.state.players.length > 2 ?
-                        [{
-                            team: {
-                                "head": (row, typePath, literalPath, template) => row.team
-                            },
-                            value: {
-                                "tail": (rows, typePath, literalPath, template) => rows.length
-                            },
-                            records:{
-                                "tail": (rows, typePath, literalPath, template ) => rows
-                            }
-                        }] :
-                        [{
-                            team: {
-                                "head": (row, typePath, literalPath, template) => row.color
-                            },
-                            value: {
-                                "tail": (rows, typePath, literalPath, template) => rows.length
-                            },
-                            records:{
-                                "tail": (rows, typePath, literalPath, template ) => rows
-                            }
-                        }])
-                        params.scores ? params.scores.split(",").forEach((score,index)=>{
-                            this.state.teams[index].score = score
-                        })  : 0;
-                        this.state.teams.sort((a,b)=>{
-                            let position=0;
-                            a.records.forEach((player)=>{
-                                if(player.steam_id==this.state.steamid){
-                                    position=-1;
+                            const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
+                                let playerRating = (await (await fetch(this.state.proxy+( player["steam_id"] ? "https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&steam_id="+player["steam_id"] : "https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&profile_id="+player["profile_id"] ) )).json())[0];
+                                let playerInfo = (await (await fetch(this.state.proxy+( player["steam_id"] ? "https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"] : "https://aoe2.net/api/player/lastmatch?game=aoe2de&profile_id="+player["profile_id"] ) )).json());
+                                playerRating = playerRating ? playerRating : {};
+                                playerInfo = playerInfo ? playerInfo : {};
+                                let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
+                                let combinedInfo = {
+                                    flagClass:flag,
+                                    ...player,
+                                    ...playerRating,
+                                    ...playerInfo
+                                };
+                                return combinedInfo;
+                            }));
+                            this.state.players = extendedplayerinfo;
+                            this.state.teams = grul.atHierarchy(this.state.players,
+                            this.state.players.length > 2 ?
+                            [{
+                                team: {
+                                    "head": (row, typePath, literalPath, template) => row.team
+                                },
+                                value: {
+                                    "tail": (rows, typePath, literalPath, template) => rows.length
+                                },
+                                records:{
+                                    "tail": (rows, typePath, literalPath, template ) => rows
                                 }
-                            })
-                            return position;
-                        });
-                        this.update();
+                            }] :
+                            [{
+                                team: {
+                                    "head": (row, typePath, literalPath, template) => row.color
+                                },
+                                value: {
+                                    "tail": (rows, typePath, literalPath, template) => rows.length
+                                },
+                                records:{
+                                    "tail": (rows, typePath, literalPath, template ) => rows
+                                }
+                            }])
+                            params.scores ? params.scores.split(",").forEach((score,index)=>{
+                                this.state.teams[index].score = score
+                            })  : 0;
+                            this.state.teams.sort((a,b)=>{
+                                let position=0;
+                                a.records.forEach((player)=>{
+                                    if(player.steam_id==this.state.steamid){
+                                        position=-1;
+                                    }
+                                })
+                                return position;
+                            });
+                            this.update();
+                        }
+                        
                     }
                     catch(e){
                         
@@ -328,9 +329,16 @@
                         this.update();
                         
                     }
+                    let greatestTeamIndex = this.state.teams[0].records.length > this.state.teams[1].records.length ? 0 : 1;
+                    let time = 40000;
+                    if(this.state.cycle==0){
+                        time = (this.state.teams[greatestTeamIndex].records.length) * 40000;
+                    }
+                    setTimeout(pullMatchDetails, time);
+
                 }
                 pullMatchDetails();
-                setInterval(pullMatchDetails,60000);
+                
             },
             QueryStringToObj(a) {
                 a = a.slice(a.indexOf("?")+1,a.length).split('&');
@@ -361,8 +369,8 @@
                             document.getElementById("team-0-player-"+index)
                             .parentNode
                             .parentNode,
-                            index*12000,
-                            ((index+1)*12000)
+                            index*30000,
+                            ((index+1)*30000)
                         );
                         
                     });
@@ -375,8 +383,8 @@
                             document.getElementById("team-1-player-"+index)
                             .parentNode
                             .parentNode,
-                            index*12000,
-                            ((index+1)*12000)
+                            index*30000,
+                            ((index+1)*30000)
                         );
                     })
                 },100);
