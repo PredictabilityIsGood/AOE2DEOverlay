@@ -268,6 +268,7 @@
                             const extendedplayerinfo = await Promise.all(this.state.players.map(async (player)=>{
                                 let playerRating = (await (await fetch(this.state.proxy+( player["steam_id"] ? "https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&steam_id="+player["steam_id"] : "https://aoe2.net/api/player/ratinghistory?game=aoe2de&count=1&profile_id="+player["profile_id"] ) )).json())[0];
                                 let playerInfo = (await (await fetch(this.state.proxy+( player["steam_id"] ? "https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"] : "https://aoe2.net/api/player/lastmatch?game=aoe2de&profile_id="+player["profile_id"] ) )).json());
+                                console.log(playerRating,playerInfo);
                                 playerRating = playerRating ? playerRating : {};
                                 playerInfo = playerInfo ? playerInfo : {};
                                 let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
@@ -303,7 +304,8 @@
                                 records:{
                                     "tail": (rows, typePath, literalPath, template ) => rows
                                 }
-                            }])
+                            }]);
+                            console.log(this.state.players);
                             params.scores ? params.scores.split(",").forEach((score,index)=>{
                                 this.state.teams[index].score = score
                             })  : 0;
@@ -321,21 +323,29 @@
                         
                     }
                     catch(e){
-                        
-                        let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
-                        const downtext = await response.text();
-                        console.log("site is down",e,downtext);
-                        serverdown = true;
-                        this.update();
-                        
+                        try{ 
+                            let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
+                            const downtext = await response.text();
+                            console.log("site is down",e,downtext);
+                            serverdown = true;
+                            this.update();
+                        }
+                        catch(e){
+                            console.log(e);
+                        }
                     }
-                    let greatestTeamIndex = this.state.teams[0].records.length > this.state.teams[1].records.length ? 0 : 1;
-                    let time = 40000;
-                    if(this.state.cycle==0){
-                        time = (this.state.teams[greatestTeamIndex].records.length) * 40000;
+                    try{
+                        let greatestTeamIndex = this.state.teams[0].records.length > this.state.teams[1].records.length ? 0 : 1;
+                        let time = 40000;
+                        if(this.state.cycle==0){
+                            time = (this.state.teams[greatestTeamIndex].records.length) * 40000;
+                        }
+                        setTimeout(pullMatchDetails, time);
                     }
-                    setTimeout(pullMatchDetails, time);
-
+                    catch(e){
+                        
+                        setTimeout(pullMatchDetails, 40000);
+                    }
                 }
                 pullMatchDetails();
                 
