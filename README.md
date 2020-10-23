@@ -1,6 +1,8 @@
 # AOE2DEOverlay
 provides dynamic twitch overlay for steamid specified with match information with civilization icons, and civ overviews and details
 
+![Civilization Details](https://raw.githubusercontent.com/PredictabilityIsGood/AOE2DEOverlay/master/Civ-Details.PNG)
+
 ## Installation Steps (github hosted, locally proxied - out of the box setups - BASIC )
 1) Install Node.JS from [here](https://nodejs.org/en/download/current/)
 2) Clone/Download this or a forked repository from github
