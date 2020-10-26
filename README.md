@@ -68,3 +68,6 @@ scores - manual override for score display based on teams 1 and 2. i.e. scores=3
 
 ### Recommendations
 1v1 and Team Matches should display the browser source as 940 x 600 resized to fit within the area between resources and diplomacy options with a low value opacity in order to prevent viewer experience blocking like opacity=.3. By utilizing the 600h, brief civ information will be visible as the new match is loaded into memory
+
+### Need Help/Want Customization?
+I'd be glad to continue helping anyone who happens to stumble on this little project. If you'd like personal customizations, send me an email or add me on github!
