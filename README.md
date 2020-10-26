@@ -71,3 +71,6 @@ scores - manual override for score display based on teams 1 and 2. i.e. scores=3
 
 ### Need Help/Want Customization?
 I'd be glad to continue helping anyone who happens to stumble on this little project. If you'd like personal customizations, send me an email or add me on github!
+
+### Special Thanks
+Thank you to [Siege Engineers](https://github.com/SiegeEngineers/aoe2techtree) for helping decompress assets from AOE2DE game files which helps create the wonderful civ overviews upon new match load
