@@ -3,7 +3,15 @@ provides dynamic twitch overlay for steamid specified with match information wit
 
 ![Civilization Details](https://raw.githubusercontent.com/PredictabilityIsGood/AOE2DEOverlay/master/Civ-Details.PNG)
 
-## Installation Steps (github hosted, locally proxied - out of the box setups - BASIC )
+
+## Installation Steps (github hosted, internet proxied courtesy VaultLambda.com - out of the box setup - BASIC )
+1) Add source of "Browser" within OBS studio in the scene of your choice
+2) Copy link from browser location of repository and paste into the field labeled URL. A customizable link is available below
+    - https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=PlayerSteamIDHere&opacity=YourOpacityBetween0and1&proxy=https://proxy.vaultlambda.com/
+3) Modify the width and height attributes to ensure that the information provided fits properly within your stream display. We recommend 940w x 600h for both 1v1 and Team games with multiple players. Resizing then will occur within the obs scaler in step 9
+4) Utilize the obs resizing options to fit the overlay properly within your stream
+
+## Installation Steps (github hosted, locally proxied - out of the box setup - BASIC )
 1) Install Node.JS from [here](https://nodejs.org/en/download/current/)
 2) Clone/Download this or a forked repository from github
 3) Open CMD prompt and move to the downloaded directory
@@ -35,15 +43,15 @@ You can customize the link provided with the following required/optional feature
 
 i.e. for Dogao's aoe profile:
 
-https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561197992981071&opacity=.8
+https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561197992981071&opacity=.8&proxy=https://proxy.vaultlambda.com/
 
 i.e. for Miguel's aoe profile:
 
-https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198242526658&opacity=.8
+https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198242526658&opacity=.8&proxy=https://proxy.vaultlambda.com/
 
 i.e. for Hera's aoe profile:
 
-https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198449406083&opacity=.8
+https://predictabilityisgood.github.io/AOE2DEOverlay/?steamid=76561198449406083&opacity=.8&proxy=https://proxy.vaultlambda.com/
 
 
 ### Required
