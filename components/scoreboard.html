@@ -25,7 +25,7 @@
                             </virtual>
                         </small>
                     </h2>
-                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1 {state.showStatsPanel?"":"d-none"}" style="z-index:999;font-size:{state.statsTextSize};">
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1 {state.showStatsPanel?"":"d-none"}" style="z-index:999;line-height:70%;font-size:{state.statsTextSize};">
                         <small>
                             <div class="badge badge-darks {state.showWins?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
@@ -101,7 +101,7 @@
                             </virtual>
                         </small>
                     </h2>
-                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1  {state.showStatsPanel?"":"d-none"}"  style="z-index:999;font-size:{state.statsTextSize};">
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1  {state.showStatsPanel?"":"d-none"}"  style="z-index:999;line-height:70%;font-size:{state.statsTextSize};">
                         <small>
                             <div class="badge badge-darks {state.showWins?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
