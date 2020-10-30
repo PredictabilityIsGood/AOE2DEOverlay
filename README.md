@@ -52,11 +52,40 @@ steamid - id of the steam profile that you are looking for the match of
 ### Optional
 background - color of background, supports hex color codes, rgb, rgba, and all other native css3 color formats
 
-text - color of texet, supports hex color codes, rgb, rgba, and all other native css3 color formats
+text - color of text, supports hex color codes, rgb, rgba, and all other native css3 color formats
 
 opacity - translucency of the overlay 0-1 (decimal points in between)
 
+playerTextSize - override value for player text size (percentage, pixels, rem and all other native css3 font size formats)
+
+statsTextSize - override value for stats text size (percentage, pixels, rem and all other native css3 font size formats)
+
+countryTextSize - override value for country text size (percentage, pixels, rem and all other native css3 font size formats)
+
+civTextSize - override value for player text size (percentage, pixels, rem and all other native css3 font size formats)
+
+showPlayerPanel - override for showing/hiding player panel (i.e. true/false) => default true
+
+showStatsPanel - override for showing/hiding stats panel (i.e. true/false) => default true
+
+showCountryPanel - override for showing/hiding country panel (i.e. true/false) => default true
+
+showCivPanel - override for showing/hiding civ panel (i.e. true/false) => default true
+
+showWins - override for showing/hiding stat wins (i.e. true/false) => default true
+
+showLosses - override for showing/hiding stat losses (i.e. true/false) => default true
+
+showAvgElo - override for showing/hiding stat average elo (Team Games Only) (i.e. true/false) => default true
+
+showMaxElo - override for showing/hiding stat elo or Max ELO (Team Games) (i.e. true/false) => default true
+
+showCountryText - override for showing/hiding country text (i.e. true/false) => default true
+
+showCountryFlags - override for showing/hiding country flags (i.e. true/false) => default true
+
 scores - manual override for score display based on teams 1 and 2. i.e. scores=3,2
+
 
 ### Recommendations
 1v1 and Team Matches should display the browser source as 940 x 600 resized to fit within the area between resources and diplomacy options with a low value opacity in order to prevent viewer experience blocking like opacity=.3. By utilizing the 600h, brief civ information will be visible as the new match is loaded into memory

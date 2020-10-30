@@ -11,48 +11,48 @@
             <div key=1 class="col-5 ml-4" style={"color:"+state.text+" !important;"}>
                 <div class="row bg-skew-bottom-right ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
                 <div class="row">
-                    <h2 class="w-100 text-center mb-0" style="z-index:999;">
+                    <h2 class="w-100 text-center {state.showStatsPanel==false && state.showCountryPanel==false?"":"mb-0"} {state.showPlayerPanel?"":"d-none"}" style="z-index:999;">
                         <small>
                             <virtual if={ state.teams.length==0 }>
                                 loading...
                             </virtual>
                             <virtual if={ state.teams.length>0 } class={state.teams[0].records.length>2?"margin-sm-right":""}>
                                 <virtual each={player in state.teams[0].records} >
-                                    <span class={state.teams[0].records.length>2?"text-sm":""}>{player.name}</span>
+                                    <span class={state.teams[0].records.length>2?"text-sm":""} style="font-size:{state.playerTextSize};">{player.name}</span>
                                     <img class={"ml-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png"} />
                                     <virtual if={player.name!=state.teams[0].records[state.teams[0].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
                         </small>
                     </h2>
-                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1" style="z-index:999">
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1 {state.showStatsPanel?"":"d-none"}" style="z-index:999;font-size:{state.statsTextSize};">
                         <small>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showWins?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showLosses?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showAvgElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO"+(state.teams[0].records.length==1?"":" (avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[0].records.filter((player)=>{return player.rating}).length)}
                             </div>
-                            <div if={state.teams[0].records.length>1} class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div if={state.teams[0].records.length>1} class="badge badge-darks {state.showMaxElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[0].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0) : accumulator; },0))}
                             </div>
                         </small>
                     </p>
                 </div>
                 <div class="row">
-                    <h5 class="lead w-100 text-center" style="z-index:999;">
+                    <h5 class="lead w-100 text-center {state.showCountryPanel?"":"d-none"}" style="z-index:999;">
                         <div if={ state.teams.length > 0 }>
                             <virtual if={state.teams[0].records.filter((player)=>{ return player.flagClass==state.teams[0].records[0].flagClass }).length==state.teams[0].records.length}>
-                                { state.countries[state.teams[0].records[0].country] } 
-                                <div class={state.teams[0].records[0].flagClass+" d-inline-block ml-1 mr-2"}></div>
+                                <span class="{state.showCountryText?"":"d-none"}" style="font-size:{state.countryTextSize};">{ state.countries[state.teams[0].records[0].country] } </span>
+                                <div class="{state.teams[0].records[0].flagClass} ml-1 mr-2 {state.showCountryFlags?"d-inline-block":"d-none"}"></div>
                             </virtual>
                             <virtual if={state.teams[0].records.filter((player)=>{ return player.flagClass==state.teams[0].records[0].flagClass }).length!=state.teams[0].records.length}>
                                 <virtual each={ player in state.teams[0].records }>
-                                    { state.countries[player.country] } 
-                                    <div class={player.flagClass+" d-inline-block ml-1 mr-2"}></div>
+                                    <span class="{state.showCountryText?"":"d-none"}" style="font-size:{state.countryTextSize};">{ state.countries[player.country] } </span>
+                                    <div class="{player.flagClass} ml-1 mr-2 {state.showCountryFlags?"d-inline-block":"d-none"}"></div>
                                 </virtual>
                             </virtual>
                         </div>
@@ -87,48 +87,48 @@
             </div>
             <div key=2 class="col-5 mr-4" style={"color:"+state.text+" !important;" }>
                 <div class="row bg-skew-bottom-left ppr-sdw" style={"opacity:"+state.opacity+";"+"background-color:"+state.background+";"}></div>
-                <div class="row">
-                    <h2 class="w-100 text-center mb-0" style="z-index:999;">
-                        <small>
+                <div class="row {state.showPlayerPanel?"":"d-none"}">
+                    <h2 class="w-100 text-center mb-0  {state.showPlayerPanel?"":"d-none"}" style="z-index:999;">
+                        <small style="font-size:{state.playerTextSize};">
                             <virtual if={ state.teams.length==0 }>
                                 loading...
                             </virtual>
                             <virtual if={ state.teams.length>0 } class={state.teams[1].records.length>2?"margin-sm-left":""}>
                                 <virtual each={player in state.teams[1].records}>
                                     <img class={"mr-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png"} />
-                                    <span class={state.teams[1].records.length>2?"text-sm":""}>{player.name}</span><virtual if={player.name!=state.teams[1].records[state.teams[1].records.length-1].name}>, </virtual>
+                                    <span class={state.teams[1].records.length>2?"text-sm":""}  style="font-size:{state.playerTextSize};">{player.name}</span><virtual if={player.name!=state.teams[1].records[state.teams[1].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
                         </small>
                     </h2>
-                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1"  style="z-index:999;">
+                    <p if={state.teams.length > 0 } class="lead w-100 text-center mb-1  {state.showStatsPanel?"":"d-none"}"  style="z-index:999;font-size:{state.statsTextSize};">
                         <small>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showWins?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Wins: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_wins?player.num_wins:0)},0)}
                             </div>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showLosses?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
-                            <div class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div class="badge badge-darks {state.showAvgElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO"+(state.teams[1].records.length==1?"":" (avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
                             </div>
-                            <div if={state.teams[1].records.length>1} class="badge badge-darks" style={"color:"+state.text+" !important;"}>
+                            <div if={state.teams[1].records.length>1} class="badge badge-darks {state.showMaxElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[1].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0): accumulator; },0))}
                             </div>
                         </small>
                     </p>
                 </div>
                 <div class="row">
-                    <h5 class="lead w-100 text-center" style="z-index:999;">
+                    <h5 class="lead w-100 text-center  {state.showCountryPanel?"":"d-none"}" style="z-index:999;">
                         <div if={ state.teams.length > 0 } >
                             <virtual if={state.teams[1].records.filter((player)=>{ return player.flagClass==state.teams[1].records[0].flagClass }).length==state.teams[1].records.length}>
-                                { state.countries[state.teams[1].records[0].country] } 
-                                <div class={state.teams[1].records[0].flagClass+" d-inline-block ml-1 mr-2"}></div>
+                                <span class="{state.showCountryText?"":"d-none"}" style="font-size:{state.countryTextSize};">{ state.countries[state.teams[1].records[0].country] }</span> 
+                                <div class="{state.teams[1].records[0].flagClass} ml-1 mr-2 {state.showCountryFlags?"d-inline-block":"d-none"}"></div>
                             </virtual>
                             <virtual if={state.teams[1].records.filter((player)=>{ return player.flagClass==state.teams[1].records[0].flagClass }).length!=state.teams[1].records.length}>
                                 <virtual each={ player in state.teams[1].records }>
-                                    { state.countries[player.country] } 
-                                    <div class={player.flagClass+" d-inline-block ml-1 mr-2"}></div>
+                                    <span class="{state.showCountryText?"":"d-none"}" style="font-size:{state.countryTextSize};">{ state.countries[player.country] } </span>
+                                    <div class="{player.flagClass} ml-1 mr-2 {state.showCountryFlags?"d-inline-block":"d-none"}"></div>
                                 </virtual>
                             </virtual>
                         </div>
@@ -148,7 +148,7 @@
                             <h2 class="text-center">
                                 <img class="img-lg" src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===
                                     player.civ}).string.toLowerCase() + ".png"} />
-                                <small class="ml-2">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
+                                <small class="ml-2" style="font-size:{state.civTextSize};">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
                             </h2>
                             <small id={"team-0-player-"+index}></small>
                         </div>
@@ -162,7 +162,7 @@
                         <div class="py-2">
                             <h2 class="text-center">
                                 <img class="img-lg" src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png"} />
-                                <small class="ml-2">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
+                                <small class="ml-2" style="font-size:{state.civTextSize};">{getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string}</small>
                             </h2>
                             <small id={"team-1-player-"+index}></small>
                         </div>
@@ -256,6 +256,21 @@
                     this.state.border=params.border || "transparent";
                     this.state.opacity=params.opacity || ".6";
                     this.state.proxy=params.proxy || "http://localhost:8080/";
+                    this.state.playerTextSize=params.playerTextSize || "";
+                    this.state.statsTextSize=params.statsTextSize || "";
+                    this.state.countryTextSize=params.countryTextSize || "";
+                    this.state.civTextSize=params.civTextSize || "";
+                    this.state.showPlayerPanel=params.showPlayerPanel ? eval(params.showPlayerPanel) : true;
+                    this.state.showStatsPanel=params.showStatsPanel ? eval(params.showStatsPanel) : true;
+                    this.state.showWins=params.showWins ? eval(params.showWins) : true;
+                    this.state.showLosses=params.showLosses ? eval(params.showLosses) : true;
+                    this.state.showAvgElo=params.showAvgElo ? eval(params.showAvgElo) : true;
+                    this.state.showMaxElo=params.showMaxElo ? eval(params.showMaxElo) : true;
+                    this.state.showCountryPanel=params.showCountryPanel ? eval(params.showCountryPanel) : true;
+                    this.state.showCountryText=params.showCountryText ? eval(params.showCountryText) : true;
+                    this.state.showCountryFlags=params.showCountryFlags ? eval(params.showCountryFlags) : true;
+                    this.state.showCivPanel=params.showCivPanel ? eval(params.showCivPanel) :true;
+                    
                     try{
                         let response = await fetch(this.state.proxy+"https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+this.state.steamid);
                         const data = await response.json();
