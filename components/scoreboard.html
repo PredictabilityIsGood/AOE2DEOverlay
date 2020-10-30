@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <div if={!serverdown} id="info-panel" class="row mt-2" style="line-height:19px;">
+        <div if={!serverdown} id="info-panel" class="row mt-2 {state.showCivPanel?"":"d-none"}" style="line-height:19px;">
             <div class="col-6" style={"color:"+state.text+" !important;"}>
                 <div if={state.cycle==0 && state.teams} class="ml-4 mr-1" style="position:absolute;right:calc( 15% - 36px );width:auto;max-width:80%;">
                     <div class="w-100 h-100 position-absolute ppr-sdw rounded-bottom" style={"opacity:"+state.opacity+";background-color:"+state.background+";"}></div>
