@@ -34,7 +34,7 @@
                                 {"Losses: "+state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
                             <div class="badge badge-darks {state.showAvgElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
-                                {"ELO"+(state.teams[0].records.length==1?"":" (avg)")+": "+(state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[0].records.filter((player)=>{return player.rating}).length)}
+                                {"ELO"+(state.teams[0].records.length==1?"":" (avg)")+": "+((state.teams[0].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[0].records.filter((player)=>{return player.rating}).length)).toFixed(2)}
                             </div>
                             <div if={state.teams[0].records.length>1} class="badge badge-darks {state.showMaxElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[0].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0) : accumulator; },0))}
@@ -110,7 +110,7 @@
                                 {"Losses: "+state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.num_losses?player.num_losses:0)},0)}
                             </div>
                             <div class="badge badge-darks {state.showAvgElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
-                                {"ELO"+(state.teams[1].records.length==1?"":" (avg)")+": "+(state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)}
+                                {"ELO"+(state.teams[1].records.length==1?"":" (avg)")+": "+((state.teams[1].records.reduce((accumulator,player)=>{return accumulator+(player.rating?player.rating:0)},0)/state.teams[1].records.filter((player)=>{return player.rating}).length)).toFixed(2)}
                             </div>
                             <div if={state.teams[1].records.length>1} class="badge badge-darks {state.showMaxElo?"":"d-none"}" style={"color:"+state.text+" !important;"}>
                                 {"ELO (max): "+(state.teams[1].records.reduce((accumulator,player)=>{ return (player.rating?player.rating:0) > accumulator ? (player.rating?player.rating:0): accumulator; },0))}
