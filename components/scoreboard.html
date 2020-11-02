@@ -285,7 +285,7 @@
                                 let playerInfo = (await (await fetch(this.state.proxy+( player["steam_id"] ? "https://aoe2.net/api/player/lastmatch?game=aoe2de&steam_id="+player["steam_id"] : "https://aoe2.net/api/player/lastmatch?game=aoe2de&profile_id="+player["profile_id"] ) )).json());
                                 playerRating = playerRating ? playerRating : {};
                                 playerInfo = playerInfo ? playerInfo : {};
-                                let flag = `flag flag-${playerInfo.country.toLowerCase()}`;
+                                let flag = playerInfo.country ? `flag flag-${playerInfo.country.toLowerCase()}` : "" ;
                                 let combinedInfo = {
                                     flagClass:flag,
                                     ...player,
