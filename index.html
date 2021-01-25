@@ -15,6 +15,7 @@
                 ...metadata,
                 detailed: await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json")).json()
             };
+            metadata.detailed.strings = await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/en/strings.json")).json();
         }
         init();
     </script>
