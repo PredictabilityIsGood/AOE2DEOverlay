@@ -388,8 +388,8 @@
                 setTimeout(()=>{
                     this.state.teams[0].records.forEach((player,index)=>{
                         let civPick = metadata.civ.find((civ)=>{ return civ.id===player.civ}).string;
-                        let textId = metadata.detailed.civ_helptexts[civPick];
-                        let html = metadata.detailed.strings[textId].replace(regex,'<br>');
+                        let textId = civPick in metadata.detailed.civ_helptexts ? metadata.detailed.civ_helptexts[civPick] : null;
+                        let html = textId === null ? "Civilization data does not yet exist" : metadata.detailed.strings[textId].replace(regex,'<br>');
                         document.getElementById("team-0-player-"+index).innerHTML=html;
                         this.fadeInOut(
                             document.getElementById("team-0-player-"+index)
