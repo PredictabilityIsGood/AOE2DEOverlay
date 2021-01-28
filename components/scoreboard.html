@@ -19,7 +19,7 @@
                             <virtual if={ state.teams.length>0 } class={state.teams[0].records.length>2?"margin-sm-right":""}>
                                 <virtual each={player in state.teams[0].records} >
                                     <span class={state.teams[0].records.length>2?"text-sm":""} style="font-size:{state.playerTextSize};">{player.name}</span>
-                                    <img class={"ml-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png"} />
+                                    <img class={"ml-1 "+(state.teams[0].records.length>2?"img-sm":"img") + (player.civ ? "" : "d-none")} src={(player.civ ? "images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png" : "")} />
                                     <virtual if={player.name!=state.teams[0].records[state.teams[0].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
@@ -95,7 +95,7 @@
                             </virtual>
                             <virtual if={ state.teams.length>0 } class={state.teams[1].records.length>2?"margin-sm-left":""}>
                                 <virtual each={player in state.teams[1].records}>
-                                    <img class={"mr-1 "+(state.teams[0].records.length>2?"img-sm":"img")} src={"images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png"} />
+                                    <img class={"mr-1 "+(state.teams[0].records.length>2?"img-sm":"img") + (player.civ ? "" : "d-none")} src={(player.civ ? "images/" + getMetaData().civ.find((civ)=>{ return civ.id===player.civ}).string.toLowerCase() + ".png" : "")} />
                                     <span class={state.teams[1].records.length>2?"text-sm":""} style="font-size:{state.playerTextSize};">{player.name}</span><virtual if={player.name!=state.teams[1].records[state.teams[1].records.length-1].name}>, </virtual>
                                 </virtual>
                             </virtual>
