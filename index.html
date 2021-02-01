@@ -16,8 +16,6 @@
                 detailed: await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/data.json")).json()
             };
             metadata.detailed.strings = await (await fetch("https://raw.githubusercontent.com/SiegeEngineers/aoe2techtree/master/data/locales/en/strings.json")).json();
-            metadata.civ.push({"id":35,"string":"Burgundians"});
-            metadata.civ.push({"id":36,"string":"Sicillians"});
         }
         init();
     </script>
